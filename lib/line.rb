@@ -8,6 +8,13 @@ class Line
     @destination = attributes[:destination_id]
   end
 
+  def self.create(attributes)
+    new_line = Line.new(attributes)
+    new_line.save
+    new_line
+  end
+
+
   def self.all
     results = DB.exec("SELECT * FROM lines;")
     lines = []

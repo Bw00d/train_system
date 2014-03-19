@@ -4,6 +4,7 @@ require 'pg'
 
 DB = PG.connect({ :dbname => 'train_system' })
 
+@@user = nil
 def prompt
   print '> '
 end
@@ -11,14 +12,15 @@ end
 def main_menu
   puts "\n\n"
   puts "Are you an Operator or Rider?"
-  puts "X exit program."
   prompt
   response = gets.chomp.downcase
 
   case response
   when "operator"
+    @@user = "operator"
     operator_menu
   when "rider"
+    @@user = "rider"
     rider_menu
   when "x"
     exit
@@ -51,7 +53,7 @@ def operator_menu
     main_menu
   else
     puts "Invalid inut!\n\n"
-    main_menu
+    operator_menu
   end
 end
 
@@ -60,20 +62,35 @@ def add_station
   puts "Enter the name of the new station:"
   prompt
   new_station = Station.create({ :name => gets.chomp })
-  puts "#{new_station} was added to your database.\n\n"
-  main_menu
+  puts "#{new_station.name} was added to your database.\n\n"
+  operator_menu
 end
 
 def view_stations
+  puts "\n\n"
   Station.all.each do |station|
     puts "#{station.name}"
   end
+  puts "\n\n"
+  @@user == "operator" ? operator_menu : main_menu
 end
 
 def modify_station
 end
 
 def delete_station
+end
+
+def add_line
+end
+
+def view_lines
+end
+
+def modify_lines
+end
+
+def delete_lines
 end
 
 puts "Welcome to the Train System Manager"

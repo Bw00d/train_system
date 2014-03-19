@@ -13,6 +13,13 @@ describe Line do
     end
   end
 
+  describe '.create' do
+    it 'initializes a line and saves it to the database' do
+      test_line = Line.create({ :name => "Red", :source_id => 1, :destination_id => 5 })
+      Line.all.should eq  [test_line]
+    end
+  end
+
   describe '.all' do
     it 'should be empty to start' do
       Line.all.should eq []
@@ -34,6 +41,12 @@ describe Line do
       test_line1.should eq test_line2
     end
   end
+
+  # describe 'all_stops' do
+  #   it 'returns and array of all stations on the line' do
+  #     test_line = Line
+  #   end
+  # end
 end
 
 
