@@ -13,11 +13,11 @@ class Station
   end
 
   def self.all
-    results = DB.exec("SELECT * FROM stations;")
+    results  = DB.exec("SELECT * FROM stations;")
     stations = []
     results.each do |result|
       name = result['name']
-      id = result['id'].to_i
+      id   = result['id'].to_i
       stations << Station.new({ :name => name, :id => id })
     end
     stations
@@ -25,7 +25,7 @@ class Station
 
   def save
     result = DB.exec("INSERT INTO stations (name) VALUES ('#@name') RETURNING id;")
-    @id = result.first['id'].to_i
+    @id    = result.first['id'].to_i
   end
 
   def delete
