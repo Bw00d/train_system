@@ -6,6 +6,12 @@ class Station
     @id   = attributes[:id]
   end
 
+  def self.create(attributes)
+    new_station = Station.new(attributes)
+    new_station.save
+    new_station
+  end
+
   def self.all
     results = DB.exec("SELECT * FROM stations;")
     stations = []
@@ -20,6 +26,17 @@ class Station
   def save
     result = DB.exec("INSERT INTO stations (name) VALUES ('#@name') RETURNING id;")
     @id = result.first['id'].to_i
+  end
+
+  def delete
+    DB.exec("DELETE FROM stations WHERE id = #@id;")
+  end
+
+  def modify(attributes)
+    if attributes.include?(:name)
+      @name = attributes[:name]
+      DB.exec("UPDATE stations SET name = '#{attributes[:name]}' WHERE id = #@id;")
+    end
   end
 
   def ==(another_station)

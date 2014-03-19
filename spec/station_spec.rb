@@ -13,6 +13,13 @@ describe Station do
     end
   end
 
+  describe '.create' do
+    it 'initializes with a name and an id' do
+      test_station = Station.create({ :name => "Beaverton" })
+      test_station.name.should eq "Beaverton"
+    end
+  end
+
   describe '.all' do
     it 'should be empty to start' do
       Station.all.should eq []
@@ -24,6 +31,23 @@ describe Station do
       test_station = Station.new({:name => "Beaverton"})
       test_station.save
       Station.all.should eq [test_station]
+    end
+  end
+
+  describe '#delete' do
+    it 'removes a station from the database' do
+      test_station = Station.create({ :name => "Sunset", :id => 2})
+      test_station2 = Station.create({ :name => "Beaverton", :id => 1})
+      test_station.delete
+      Station.all.should eq [test_station2]
+    end
+  end
+
+  describe 'modify' do
+    it 'allows a user update the name of the station' do
+      test_station = Station.create({ :name => "beaverton" })
+      test_station.modify({ :name => "Beaverton"})
+      test_station.name.should eq "Beaverton"
     end
   end
 
