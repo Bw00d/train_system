@@ -6,6 +6,11 @@ class Stop
     @station_id = attributes[:station_id]
     @id         = attributes[:id]
   end
+  def self.create(attributes)
+    new_stop = Stop.new(attributes)
+    new_stop.save
+    new_stop
+  end
 
   def self.all
     results = DB.exec("SELECT * FROM  stops;")

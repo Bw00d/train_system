@@ -42,11 +42,16 @@ describe Line do
     end
   end
 
-  # describe 'all_stops' do
-  #   it 'returns and array of all stations on the line' do
-  #     test_line = Line
-  #   end
-  # end
+  describe 'all_stops' do
+    it 'returns and array of all stations on the line' do
+      test_station1 = Station.create({ :name => "Airport", :id => 1})
+      test_station2 = Station.create({ :name => "Hillsboro", :id => 5})
+      test_line = Line.create({ :name => "Red", :id => 1, :source_id => 1, :destination_id => 5 })
+      test_stop1 = Stop.create({ :line_id => 1, :station_id => 1})
+      test_stop2 = Stop.create({ :line_id => 1, :station_id => 5})
+      test_line.all_stops.should eq [test_station1.name, test_station2.name]
+    end
+  end
 end
 
 

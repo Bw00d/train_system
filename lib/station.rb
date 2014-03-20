@@ -43,4 +43,24 @@ class Station
     self.name == another_station.name && self.id == another_station.id
   end
 
+  def self.find_name_by_id(id)
+    station_name = nil
+    Station.all.each do |station|
+      if station.id == id.to_i
+        return station_name = station.name
+      end
+    end
+    station_name
+  end
+
+  def self.find_id_by_name(name)
+    station_id = nil
+    Station.all.each do |station|
+      if station.name == name
+        return station_id = station.id
+      end
+    end
+    station_id
+  end
+
 end

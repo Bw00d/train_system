@@ -58,6 +58,24 @@ describe Station do
       test_station1.should eq test_station2
     end
   end
+
+  describe 'find_name_by_id' do
+    it 'returns the name of a station when given the id' do
+      test_station1 = Station.create({ :name => "Beaverton" })
+      test_station2 = Station.create({ :name => "Hillsboro" })
+      test_station3 = Station.create({ :name => "Airport" })
+      Station.find_name_by_id(test_station3.id).should eq "Airport"
+    end
+  end
+
+  describe 'find_id_by_name' do
+    it 'returns the id of a station when given the name' do
+      test_station1 = Station.create({ :name => "Beaverton" })
+      test_station2 = Station.create({ :name => "Hillsboro" })
+      test_station3 = Station.create({ :name => "Airport" })
+      Station.find_id_by_name(test_station3.name).should eq test_station3.id
+    end
+  end
 end
 
 
